@@ -1,6 +1,3 @@
-![alt tag](https://raw.github.com/dogfalo/materialize/master/images/materialize.gif)
-===========
-
 [![Gitter](https://badges.gitter.im/Join Chat.svg)](https://gitter.im/Dogfalo/materialize?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
 Materialize, a CSS Framework based on material design
 
@@ -76,3 +73,5 @@ Chrome 35+, Firefox 31+, Safari 7+, IE 10+
   - Responsive Tables support added
   - Scrollspy Plugin released
   - Waves events are now delegated / behavior enhanced
+=======
+# RecarioFruits
