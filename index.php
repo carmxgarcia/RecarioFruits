@@ -164,6 +164,8 @@ PS: I will fix the color scheme and the logo soon.
                   <th data-field="id">Fruit</th>
                   <th data-field="name">Price</th>
                   <th data-field="price">Quantity</th>
+                  <th data-field="distributor">Distributor</th>
+                  <th data-field="date">Date</th>
                   <th>Edit</th>
                   <th>Delete</th>
               </tr>
@@ -175,6 +177,8 @@ PS: I will fix the color scheme and the logo soon.
                 <td>Mango</td>
                 <td>$0.87</td>
                 <td>3</td>
+                <td>N/A</td>
+                <td>January 1, 2015</td>
                 <td><a class="btn-floating waves-effect waves-light btn modal-trigger" href="#modal2"><i class="mdi-image-edit left"></i></a></td>
                 <td><a class="btn-floating waves-effect waves-light btn"><i class="mdi-action-delete left"></i></a></td>
               </tr>
@@ -183,6 +187,8 @@ PS: I will fix the color scheme and the logo soon.
                 <td>Banana</td>
                 <td>$3.76</td>
                 <td>100</td>
+                <td>N/A</td>
+                <td>January 1, 2015</td>
                 <td><a class="btn-floating waves-effect waves-light btn modal-trigger" href="#modal2"><i class="mdi-image-edit left"></i></a></td>
                 <td><a class="btn-floating waves-effect waves-light btn"><i class="mdi-action-delete left"></i></a></td>
               </tr>
@@ -191,6 +197,8 @@ PS: I will fix the color scheme and the logo soon.
                 <td>Apple</td>
                 <td>$7.00</td>
                 <td>210</td>
+                <td>N/A</td>
+                <td>January 1, 2015</td>
                 <td><a class="btn-floating waves-effect waves-light btn modal-trigger" href="#modal2"><i class="mdi-image-edit left"></i></a></td>
                 <td><a class="btn-floating waves-effect waves-light btn"><i class="mdi-action-delete left"></i></a></td>
               </tr>
@@ -319,6 +327,8 @@ PS: I will fix the color scheme and the logo soon.
                   <th data-field="id">Fruit</th>
                   <th data-field="name">Price</th>
                   <th data-field="price">Quantity</th>
+                  <th data-field="distributor">Distributor</th>
+                  <th data-field="date">Date</th>
                   <th>Edit</th>
                   <th>Delete</th>
               </tr>
@@ -330,6 +340,8 @@ PS: I will fix the color scheme and the logo soon.
                 <td>Avocado</td>
                 <td>$0.87</td>
                 <td>3</td>
+                <td>N/A</td>
+                <td>January 1, 2015</td>
                 <td><a class="btn-floating waves-effect waves-light btn modal-trigger" href="#modal4"><i class="mdi-image-edit left"></i></a></td>
                 <td><a class="btn-floating waves-effect waves-light btn"><i class="mdi-action-delete left"></i></a></td>
               </tr>
@@ -338,6 +350,8 @@ PS: I will fix the color scheme and the logo soon.
                 <td>Strawberry</td>
                 <td>$3.76</td>
                 <td>100</td>
+                <td>N/A</td>
+                <td>January 1, 2015</td>
                 <td><a class="btn-floating waves-effect waves-light btn modal-trigger" href="#modal4"><i class="mdi-image-edit left"></i></a></td>
                 <td><a class="btn-floating waves-effect waves-light btn"><i class="mdi-action-delete left"></i></a></td>
               </tr>
@@ -346,6 +360,8 @@ PS: I will fix the color scheme and the logo soon.
                 <td>Guava</td>
                 <td>$7.00</td>
                 <td>210</td>
+                <td>N/A</td>
+                <td>January 1, 2015</td>
                 <td><a class="btn-floating waves-effect waves-light btn modal-trigger" href="#modal4"><i class="mdi-image-edit left"></i></a></td>
                 <td><a class="btn-floating waves-effect waves-light btn"><i class="mdi-action-delete left"></i></a></td>
               </tr>
@@ -477,6 +493,8 @@ PS: I will fix the color scheme and the logo soon.
                   <th data-field="id">Fruit</th>
                   <th data-field="name">Price</th>
                   <th data-field="price">Quantity</th>
+                  <th data-field="distributor">Distributor</th>
+                  <th data-field="date">Date</th>
                   <th>Edit</th>
                   <th>Delete</th>
               </tr>
@@ -488,6 +506,8 @@ PS: I will fix the color scheme and the logo soon.
                 <td>Pineapple</td>
                 <td>$0.87</td>
                 <td>3</td>
+                <td>N/A</td>
+                <td>January 1, 2015</td>
                 <td><a class="btn-floating waves-effect waves-light btn modal-trigger" href="#modal6"><i class="mdi-image-edit left"></i></a></td>
                 <td><a class="btn-floating waves-effect waves-light btn"><i class="mdi-action-delete left"></i></a></td>
               </tr>
@@ -496,6 +516,8 @@ PS: I will fix the color scheme and the logo soon.
                 <td>Orange</td>
                 <td>$3.76</td>
                 <td>100</td>
+                <td>N/A</td>
+                <td>January 1, 2015</td>
                 <td><a class="btn-floating waves-effect waves-light btn modal-trigger" href="#modal6"><i class="mdi-image-edit left"></i></a></td>
                 <td><a class="btn-floating waves-effect waves-light btn"><i class="mdi-action-delete left"></i></a></td>
               </tr>
@@ -504,6 +526,8 @@ PS: I will fix the color scheme and the logo soon.
                 <td>Grapes</td>
                 <td>$7.00</td>
                 <td>210</td>
+                <td>N/A</td>
+                <td>January 1, 2015</td>
                 <td><a class="btn-floating waves-effect waves-light btn modal-trigger" href="#modal6"><i class="mdi-image-edit left"></i></a></td>
                 <td><a class="btn-floating waves-effect waves-light btn"><i class="mdi-action-delete left"></i></a></td>
               </tr>
