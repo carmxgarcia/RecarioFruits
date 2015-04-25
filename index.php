@@ -67,6 +67,10 @@ PS: I will fix the color scheme and the logo soon.
                 fruit name => mysql_fruit_name
                 price => mysql_fruit_price
                 quantity => mysql_fruit_quantity
+                distrubutor => mysql_fruit_distributor
+                date => system date
+
+                Save the date when the row is added on the date column.
           -->
 
           <div id="modal1" class="modal">
@@ -91,21 +95,25 @@ PS: I will fix the color scheme and the logo soon.
                   </div>
                 </div>
                 <div class="row">
-                  <div class="input-field col s6">
+                  <div class="input-field col s3">
                     <input placeholder="Price" id="mysql_fruit_price" type="text" class="validate">
                   </div>
-                  <div class="input-field col s6">
+                  <div class="input-field col s3">
                     <input placeholder="Quantity" id="mysql_fruit_quantity" type="text" class="validate">
                     
                   </div>
+                  <div class="input-field col s6">
+                    <input placeholder="Distributor" id="mysql_fruit_distributor" type="text" class="validate">
+                  </div>
                 </div>
                 
+                <div class="modal-footer">
+                  <a href="#!" class=" modal-action modal-close waves-effect waves-green mdi-content-add-circle btn"> Add Fruit</a>
+                </div>    
               </form>
             </div>
             </div>
-            <div class="modal-footer">
-              <a href="#!" class=" modal-action modal-close waves-effect waves-green mdi-content-add-circle btn"> Add Fruit</a>
-            </div>
+            
           </div>
 
           <!-- MODAL FOR EDIT MYSQL ITEMS 
@@ -114,11 +122,15 @@ PS: I will fix the color scheme and the logo soon.
                 fruit name => edit_mysql_fruit_name
                 price => edit_mysql_fruit_price
                 quantity => edit_mysql_fruit_quantity
+                distrubutor => edit_mysql_fruit_distributor
+                date => system date
+
+                Save the date when the row is updated on the date column.
           -->
 
           <div id="modal2" class="modal">
             <div class="modal-content">
-              <h4>Add Fruit</h4>
+              <h4>Edit Fruit</h4>
 
               <div class="row">
               <form class="col s12">
@@ -138,21 +150,26 @@ PS: I will fix the color scheme and the logo soon.
                   </div>
                 </div>
                 <div class="row">
-                  <div class="input-field col s6">
+                  <div class="input-field col s3">
                     <input placeholder="Price" id="edit_mysql_fruit_price" type="text" class="validate">
                   </div>
-                  <div class="input-field col s6">
+                  <div class="input-field col s3">
                     <input placeholder="Quantity" id="edit_mysql_fruit_quantity" type="text" class="validate">
                     
                   </div>
+                  <div class="input-field col s6">
+                    <input placeholder="Distributor" id="edit_mysql_fruit_distributor" type="text" class="validate">
+                  </div>
                 </div>
-                
+                <div class="row">
+                  <div class="modal-footer">
+                    <a href="#!" class=" modal-action modal-close waves-effect waves-green mdi-image-edit btn"> Edit Fruit</a>
+                  </div>  
+                </div>
               </form>
             </div>
             </div>
-            <div class="modal-footer">
-              <a href="#!" class=" modal-action modal-close waves-effect waves-green mdi-image-edit btn"> Edit Fruit</a>
-            </div>
+            
           </div>
 
           <!-- VIEW TABLE FOR MYSQL -->
@@ -230,6 +247,10 @@ PS: I will fix the color scheme and the logo soon.
                 fruit name => mongodb_fruit_name
                 price => mongodb_fruit_price
                 quantity => mongodb_fruit_quantity
+                distrubutor => mongodb_fruit_distributor
+                date => system date
+
+                Save the date when the row is added on the date column.
           -->
 
           <div id="modal3" class="modal">
@@ -254,21 +275,23 @@ PS: I will fix the color scheme and the logo soon.
                   </div>
                 </div>
                 <div class="row">
-                  <div class="input-field col s6">
+                  <div class="input-field col s3">
                     <input placeholder="Price" id="mongodb_fruit_price" type="text" class="validate">
                   </div>
-                  <div class="input-field col s6">
+                  <div class="input-field col s3">
                     <input placeholder="Quantity" id="mongodb_fruit_quantity" type="text" class="validate">
-                    
+                  </div>
+                  <div class="input-field col s6">
+                    <input placeholder="Distributor" id="mongodb_fruit_distributor" type="text" class="validate">
                   </div>
                 </div>
-                
+                <div class="modal-footer">
+                  <a href="#!" class=" modal-action modal-close waves-effect waves-green mdi-content-add-circle btn"> Add Fruit</a>
+                </div>      
               </form>
             </div>
             </div>
-            <div class="modal-footer">
-              <a href="#!" class=" modal-action modal-close waves-effect waves-green mdi-content-add-circle btn"> Add Fruit</a>
-            </div>
+            
           </div>
 
           <!-- MODAL FOR EDIT MONGODB ITEMS 
@@ -277,6 +300,10 @@ PS: I will fix the color scheme and the logo soon.
                 fruit name => edit_mongodb_fruit_name
                 price => edit_mongodb_fruit_price
                 quantity => edit_mongodb_fruit_quantity
+                distributor => edit_mongodb_fruit_distributor
+                date => system date
+
+                Save the date when the row is updated on the date column.
           -->
 
           <div id="modal4" class="modal">
@@ -301,21 +328,23 @@ PS: I will fix the color scheme and the logo soon.
                   </div>
                 </div>
                 <div class="row">
-                  <div class="input-field col s6">
+                  <div class="input-field col s3">
                     <input placeholder="Price" id="edit_mongodb_fruit_price" type="text" class="validate">
                   </div>
+                  <div class="input-field col s3">
+                    <input placeholder="Quantity" id="edit_mongodb_fruit_quantity" type="text" class="validate"> 
+                  </div>
                   <div class="input-field col s6">
-                    <input placeholder="Quantity" id="edit_mongodb_fruit_quantity" type="text" class="validate">
-                    
+                    <input placeholder="Distributor" id="edit_mongodb_fruit_distributor" type="text" class="validate"> 
                   </div>
                 </div>
-                
+                <div class="modal-footer">
+                  <a href="#!" class=" modal-action modal-close waves-effect waves-green mdi-image-edit btn"> Edit Fruit</a>
+                </div>    
               </form>
             </div>
             </div>
-            <div class="modal-footer">
-              <a href="#!" class=" modal-action modal-close waves-effect waves-green mdi-image-edit btn"> Edit Fruit</a>
-            </div>
+            
           </div>
 
           <!-- VIEW TABLE FOR MONGODB -->
@@ -396,6 +425,9 @@ PS: I will fix the color scheme and the logo soon.
                 fruit name => couchdb_fruit_name
                 price => couchdb_fruit_price
                 quantity => couchdb_fruit_quantity
+                distributor => coucdb_fruit_distributor
+                date => system date
+              Save the date when the row is added on the date column.
           -->
 
           <div id="modal5" class="modal">
@@ -420,21 +452,23 @@ PS: I will fix the color scheme and the logo soon.
                   </div>
                 </div>
                 <div class="row">
-                  <div class="input-field col s6">
+                  <div class="input-field col s3">
                     <input placeholder="Price" id="couchdb_fruit_price" type="text" class="validate">
                   </div>
+                  <div class="input-field col s3">
+                    <input placeholder="Quantity" id="couchdb_fruit_quantity" type="text" class="validate">  
+                  </div>
                   <div class="input-field col s6">
-                    <input placeholder="Quantity" id="couchdb_fruit_quantity" type="text" class="validate">
-                    
+                    <input placeholder="Distributor" id="couchdb_fruit_distributor" type="text" class="validate">  
                   </div>
                 </div>
-                
+                <div class="modal-footer">
+                  <a href="#!" class=" modal-action modal-close waves-effect waves-green mdi-content-add-circle btn"> Add Fruit</a>
+                </div>    
               </form>
             </div>
             </div>
-            <div class="modal-footer">
-              <a href="#!" class=" modal-action modal-close waves-effect waves-green mdi-content-add-circle btn"> Add Fruit</a>
-            </div>
+            
           </div>
 
           <!-- MODAL FOR EDIT COUCHDB ITEMS 
@@ -443,6 +477,9 @@ PS: I will fix the color scheme and the logo soon.
                 fruit name => edit_couchdb_fruit_name
                 price => edit_couchdb_fruit_price
                 quantity => edit_couchdb_fruit_quantity
+                distributor => edit_couchdb_fruit_distributor
+                date => system date
+            Save the date when the row is updated on the date column.
           -->
 
           <div id="modal6" class="modal">
@@ -467,21 +504,23 @@ PS: I will fix the color scheme and the logo soon.
                   </div>
                 </div>
                 <div class="row">
-                  <div class="input-field col s6">
+                  <div class="input-field col s3">
                     <input placeholder="Price" id="edit_couchdb_fruit_price" type="text" class="validate">
                   </div>
-                  <div class="input-field col s6">
+                  <div class="input-field col s3">
                     <input placeholder="Quantity" id="edit_couchdb_fruit_quantity" type="text" class="validate">
-                    
+                  </div>
+                  <div class="input-field col s6">
+                    <input placeholder="Distributor" id="edit_couchdb_fruit_distributor" type="text" class="validate">
                   </div>
                 </div>
-                
+                <div class="modal-footer">
+                  <a href="#!" class=" modal-action modal-close waves-effect waves-green mdi-image-edit btn"> Edit Fruit</a>
+                </div>    
               </form>
             </div>
             </div>
-            <div class="modal-footer">
-              <a href="#!" class=" modal-action modal-close waves-effect waves-green mdi-image-edit btn"> Edit Fruit</a>
-            </div>
+            
           </div>
 
           <!-- VIEW TABLE FOR COUCHDB -->
