@@ -10,6 +10,51 @@ PS: I will fix the color scheme and the logo soon.
 
 
 <!DOCTYPE html>
+
+  <?php
+      $servername = "localhost";
+      $username = "root";
+      $password = "root";
+      $database = "recariofruits";
+
+      // Create connection
+      $conn = new mysqli($servername, $username, $password, $database);
+
+      // Check connection
+      if ($conn->connect_error) {
+          die("Connection failed: " . $conn->connect_error);
+      }
+      
+      #if any submit button is pressed
+      if(isset($_POST['submit'])){
+        if ($_POST['submit']=="mysql add"){
+          $name = $_POST['mysql_fruit_name'];
+          $price = $_POST['mysql_fruit_price'];
+          $quantity = $_POST['mysql_fruit_quantity'];
+          $distributor = $_POST['mysql_fruit_distributor'];
+          $imgfile = $_POST['mysql_fruit_image'];
+
+          $add_fruit_query = $conn->query("INSERT INTO fruit (name, price, quantity, distributor, img) VALUES ('".$name."',".$price.",".$quantity.",'".$distributor."','".$imgfile."')") or die;
+        }
+        elseif ($_POST['submit']=="mysql edit") {
+          #Update fruit table
+          $id = $_POST['edit_mysql_fruit_id'];
+          $name = $_POST['edit_mysql_fruit_name'];
+          $price = $_POST['edit_mysql_fruit_price'];
+          $quantity = $_POST['edit_mysql_fruit_quantity'];
+          $distributor = $_POST['edit_mysql_fruit_distributor'];
+          $imgfile = $_POST['edit_mysql_fruit_image'];
+
+          $edit_fruit_query = $conn->query("UPDATE `fruit` SET `name`='".$name."',`price`=".$price.",`quantity`=".$quantity.",`distributor`='".$distributor."' WHERE id=".$id) or die;
+          if($imgfile != "") $edit_fruit_query = $conn->query("UPDATE fruit SET img='".$imgfile."' WHERE id = ".$id ) or die;
+        
+          #add event in log table
+          $curr_time = date("Y-m-d H:i:s");
+          $log_fruit_query = $conn->query("INSERT INTO log (logdatetime, fname, fprice) VALUES ('".$curr_time."','".$name."',".$price.")") or die;
+        }
+      }
+  ?>
+
   <html>
     <head>
       <!--Import materialize.css-->
@@ -50,7 +95,7 @@ PS: I will fix the color scheme and the logo soon.
 
         -->
         <div id="mysql" class="col s12">
-        
+
         <br/>
 
         <!-- BUTTON TRIGGER FOR ADD ITEM -->
@@ -78,10 +123,11 @@ PS: I will fix the color scheme and the logo soon.
               <h4>Add Fruit</h4>
 
               <div class="row">
-              <form class="col s12">
+              <form class="col s12" method="POST" action="">
                 <div class="row">
                   <div class="file-field input-field">
-                    <input class="file-path validate" type="text" id="mysql_fruit_image" placeholder="Upload Image"/>
+                    <input class="file-path validate" type="text" name="mysql_fruit_image"
+                    id="mysql_fruit_image" placeholder="Upload Image"/>
                     <div class="btn">
                       <span class="mdi-file-file-upload"></span>
                       <input type="file" />
@@ -90,25 +136,27 @@ PS: I will fix the color scheme and the logo soon.
                 </div>
                 <div class="row">
                   <div class="input-field col s12">
-                    <input placeholder="Fruit Name" id="mysql_fruit_name" type="text" class="validate">
+                    <input placeholder="Fruit Name" name="mysql_fruit_name" id="mysql_fruit_name" type="text" class="validate">
                     
                   </div>
                 </div>
                 <div class="row">
                   <div class="input-field col s3">
-                    <input placeholder="Price" id="mysql_fruit_price" type="text" class="validate">
+                    <input placeholder="Price" name="mysql_fruit_price" id="mysql_fruit_price" type="text" class="validate">
                   </div>
                   <div class="input-field col s3">
-                    <input placeholder="Quantity" id="mysql_fruit_quantity" type="text" class="validate">
+                    <input placeholder="Quantity" name="mysql_fruit_quantity" id="mysql_fruit_quantity" type="text" class="validate">
                     
                   </div>
                   <div class="input-field col s6">
-                    <input placeholder="Distributor" id="mysql_fruit_distributor" type="text" class="validate">
+                    <input placeholder="Distributor" name="mysql_fruit_distributor" id="mysql_fruit_distributor" type="text" class="validate">
                   </div>
                 </div>
                 
                 <div class="modal-footer">
-                  <a href="#!" class=" modal-action modal-close waves-effect waves-green mdi-content-add-circle btn"> Add Fruit</a>
+                  <button type="submit" name="submit" id="mysql_submit" class=" modal-action modal-close waves-effect waves-green mdi-content-add-circle btn" value="mysql add">
+                        Add New Fruit
+                  </button>
                 </div>    
               </form>
             </div>
@@ -133,10 +181,11 @@ PS: I will fix the color scheme and the logo soon.
               <h4>Edit Fruit</h4>
 
               <div class="row">
-              <form class="col s12">
+              <form class="col s12" method="POST" action="">
+
                 <div class="row">
                   <div class="file-field input-field">
-                    <input class="file-path validate" type="text" id="edit_mysql_fruit_image" placeholder="Upload Image"/>
+                    <input class="file-path validate" type="text" id="edit_mysql_fruit_image" name="edit_mysql_fruit_image" placeholder="Upload Image"/>
                     <div class="btn">
                       <span class="mdi-file-file-upload"></span>
                       <input type="file" />
@@ -145,27 +194,36 @@ PS: I will fix the color scheme and the logo soon.
                 </div>
                 <div class="row">
                   <div class="input-field col s12">
-                    <input placeholder="Fruit Name" id="edit_mysql_fruit_name" type="text" class="validate">
+                  <label>Fruit Name</label>
+                    <input placeholder="Fruit Name" id="edit_mysql_fruit_name" name="edit_mysql_fruit_name" type="text" class="validate">
                     
                   </div>
                 </div>
                 <div class="row">
+                  <input type="hidden" value="" name="edit_mysql_fruit_id" id="edit_mysql_fruit_id">
                   <div class="input-field col s3">
-                    <input placeholder="Price" id="edit_mysql_fruit_price" type="text" class="validate">
+                    <label>Price</label>
+                    <input placeholder="Price" id="edit_mysql_fruit_price" name="edit_mysql_fruit_price" type="text" class="validate">
                   </div>
                   <div class="input-field col s3">
-                    <input placeholder="Quantity" id="edit_mysql_fruit_quantity" type="text" class="validate">
+                  <label>Quantity</label>
+                    <input placeholder="Quantity" id="edit_mysql_fruit_quantity" name="edit_mysql_fruit_quantity" type="text" class="validate">
                     
                   </div>
+                  
                   <div class="input-field col s6">
-                    <input placeholder="Distributor" id="edit_mysql_fruit_distributor" type="text" class="validate">
+                    <label>Distributor</label>
+                    <input placeholder="Distributor" id="edit_mysql_fruit_distributor" name="edit_mysql_fruit_distributor" type="text" class="validate">
                   </div>
                 </div>
                 <div class="row">
                   <div class="modal-footer">
-                    <a href="#!" class=" modal-action modal-close waves-effect waves-green mdi-image-edit btn"> Edit Fruit</a>
+                    <button type="submit" name="submit" id="mysql_edit_submit" class=" modal-action modal-close waves-effect waves-green mdi-content-add-circle btn" value="mysql edit">
+                          Edit Fruit
+                    </button>
                   </div>  
                 </div>
+
               </form>
             </div>
             </div>
@@ -173,7 +231,7 @@ PS: I will fix the color scheme and the logo soon.
           </div>
 
           <!-- VIEW TABLE FOR MYSQL -->
-
+          
            <table class="centered striped container">
             <thead>
               <tr class="green lighten-3">
@@ -182,46 +240,40 @@ PS: I will fix the color scheme and the logo soon.
                   <th data-field="name">Price</th>
                   <th data-field="price">Quantity</th>
                   <th data-field="distributor">Distributor</th>
-                  <th data-field="date">Date</th>
+                  <th data-field="date">Log File</th>
                   <th>Edit</th>
                   <th>Delete</th>
               </tr>
             </thead>
 
+            <!--Query in order to fetch all available fruits in the database-->
+            <?php
+              $fruit_query = $conn->query("SELECT * FROM fruit");
+              $total = $fruit_query->num_rows;
+
+              $fruit_collection = $fruit_query->fetch_all();
+            ?>
+
             <tbody>
-              <tr>
-                <td><img class="circle" height="50px" src="mango.jpg"></td>  
-                <td>Mango</td>
-                <td>$0.87</td>
-                <td>3</td>
-                <td>N/A</td>
-                <td>January 1, 2015</td>
-                <td><a class="btn-floating waves-effect waves-light btn modal-trigger" href="#modal2"><i class="mdi-image-edit left"></i></a></td>
-                <td><a class="btn-floating waves-effect waves-light btn"><i class="mdi-action-delete left"></i></a></td>
-              </tr>
-              <tr>
-                <td><img class="circle" height="50px" src="banana.jpg"></td>
-                <td>Banana</td>
-                <td>$3.76</td>
-                <td>100</td>
-                <td>N/A</td>
-                <td>January 1, 2015</td>
-                <td><a class="btn-floating waves-effect waves-light btn modal-trigger" href="#modal2"><i class="mdi-image-edit left"></i></a></td>
-                <td><a class="btn-floating waves-effect waves-light btn"><i class="mdi-action-delete left"></i></a></td>
-              </tr>
-              <tr>
-                <td><img class="circle" height="50px" src="apple.jpg"></td>
-                <td>Apple</td>
-                <td>$7.00</td>
-                <td>210</td>
-                <td>N/A</td>
-                <td>January 1, 2015</td>
-                <td><a class="btn-floating waves-effect waves-light btn modal-trigger" href="#modal2"><i class="mdi-image-edit left"></i></a></td>
-                <td><a class="btn-floating waves-effect waves-light btn"><i class="mdi-action-delete left"></i></a></td>
-              </tr>
+              <?php
+                for ($i=0; $i < $total; $i++) { 
+                  echo "
+                    <tr id=".$fruit_collection[$i][0].">
+
+                      <td><img class='circle' height='50px' src=". $fruit_collection[$i][5] ."></td>
+                      <td>". $fruit_collection[$i][1] ."<input type='hidden' value='".$fruit_collection[$i][1]."' class='name".$fruit_collection[$i][0]."'></td>
+                      <td>". $fruit_collection[$i][2] ."<input type='hidden' value='".$fruit_collection[$i][2]."' class='price".$fruit_collection[$i][0]."'></td>
+                      <td>". $fruit_collection[$i][3] ."<input type='hidden' value='".$fruit_collection[$i][3]."' class='quantity".$fruit_collection[$i][0]."'></td>
+                      <td>". $fruit_collection[$i][4] ."<input type='hidden' value='".$fruit_collection[$i][4]."' class='distributor".$fruit_collection[$i][0]."'></td>
+                      <td>Link to Logs</td>
+                      <td><button class='btn-floating waves-effect waves-light btn modal-trigger edit' href='#modal2' value='".$fruit_collection[$i][0]."'><i class='mdi-image-edit left'></i></button></td>
+                      <td><button class='btn-floating waves-effect waves-light btn mysql_delete' name='mysql delete' value='mysql delete'><i class='mdi-action-delete left'></i></button></td>
+                    </tr>
+                  ";
+                }
+              ?>
             </tbody>
           </table>
-
         </div>
 
         <!-- MongoDB
@@ -357,7 +409,7 @@ PS: I will fix the color scheme and the logo soon.
                   <th data-field="name">Price</th>
                   <th data-field="price">Quantity</th>
                   <th data-field="distributor">Distributor</th>
-                  <th data-field="date">Date</th>
+                  <th data-field="date">Log File</th>
                   <th>Edit</th>
                   <th>Delete</th>
               </tr>
@@ -576,15 +628,30 @@ PS: I will fix the color scheme and the logo soon.
 
         <!-- END OF COUCHDB -->
 
+        
+
       <!--Import jQuery before materialize.js-->
-      
-      <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+      <script type="text/javascript" src="js/jquery-2.1.1.min.js"></script>
       <script type="text/javascript" src="js/materialize.min.js"></script>
       <script type="text/javascript">
         $(document).ready(function(){
           // the "href" attribute of .modal-trigger must specify the modal ID that wants to be triggered
           $('.modal-trigger').leanModal();
+        
+          $('.edit').click(function(){
+            
+            var a=$(this).val();
+            
+            $('#edit_mysql_fruit_id').val(a);
+            $('#edit_mysql_fruit_name').val($('.name'+a).val());
+            $('#edit_mysql_fruit_price').val($('.price'+a).val());
+            $('#edit_mysql_fruit_quantity').val($('.quantity'+a).val());
+            $('#edit_mysql_fruit_distributor').val($('.distributor'+a).val());
+
+          });
+
         });
       </script>
+    
     </body>
   </html>
