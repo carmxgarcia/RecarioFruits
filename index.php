@@ -407,7 +407,7 @@ PS: I will fix the color scheme and the logo soon.
         THIS IS THE DIV FOR COUCHDB
 
         -->
-
+		
         <div id="couchdb" class="col s12 container">
           <br/>
 
@@ -435,35 +435,34 @@ PS: I will fix the color scheme and the logo soon.
               <h4>Add Fruit</h4>
 
               <div class="row">
-              <form class="col s12">
+              <form method="POST" action="couch_add.php" class="col s12" enctype="multipart/form-data">
                 <div class="row">
                   <div class="file-field input-field">
                     <input class="file-path validate" type="text" id="couchdb_fruit_image" placeholder="Upload Image"/>
                     <div class="btn">
                       <span class="mdi-file-file-upload"></span>
-                      <input type="file" />
+                      <input type="file" name="the_file" />
                     </div>
                   </div>
                 </div>
                 <div class="row">
                   <div class="input-field col s12">
-                    <input placeholder="Fruit Name" id="couchdb_fruit_name" type="text" class="validate">
-                    
+                    <input placeholder="Fruit Name" id="couchdb_fruit_name" type="text" class="validate" name="name">
                   </div>
                 </div>
                 <div class="row">
                   <div class="input-field col s3">
-                    <input placeholder="Price" id="couchdb_fruit_price" type="text" class="validate">
+                    <input placeholder="Price" id="couchdb_fruit_price" type="text" class="validate" name="price">
                   </div>
                   <div class="input-field col s3">
-                    <input placeholder="Quantity" id="couchdb_fruit_quantity" type="text" class="validate">  
+                    <input placeholder="Quantity" id="couchdb_fruit_quantity" type="text" class="validate" name="qty">  
                   </div>
                   <div class="input-field col s6">
-                    <input placeholder="Distributor" id="couchdb_fruit_distributor" type="text" class="validate">  
+                    <input placeholder="Distributor" id="couchdb_fruit_distributor" type="text" class="validate" name="distributor">  
                   </div>
                 </div>
                 <div class="modal-footer">
-                  <a href="#!" class=" modal-action modal-close waves-effect waves-green mdi-content-add-circle btn"> Add Fruit</a>
+                  <input class="modal-action modal-close waves-effect waves-green mdi-content-add-circle btn" type="submit" value="Add Fruit">
                 </div>    
               </form>
             </div>
@@ -487,7 +486,7 @@ PS: I will fix the color scheme and the logo soon.
               <h4>Edit Fruit</h4>
 
               <div class="row">
-              <form class="col s12">
+              <form method="POST" action="couch_edit.php" class="col s12">
                 <div class="row">
                   <div class="file-field input-field">
                     <input class="file-path validate" type="text" id="edit_couchdb_fruit_image" placeholder="Upload Image"/>
@@ -540,36 +539,51 @@ PS: I will fix the color scheme and the logo soon.
             </thead>
 
             <tbody>
-              <tr>
-                <td><img class="circle" height="50px" src="pineapple.jpg"></td>  
-                <td>Pineapple</td>
-                <td>$0.87</td>
-                <td>3</td>
-                <td>N/A</td>
-                <td>January 1, 2015</td>
-                <td><a class="btn-floating waves-effect waves-light btn modal-trigger" href="#modal6"><i class="mdi-image-edit left"></i></a></td>
-                <td><a class="btn-floating waves-effect waves-light btn"><i class="mdi-action-delete left"></i></a></td>
-              </tr>
-              <tr>
-                <td><img class="circle" height="50px" src="orange.jpg"></td>
-                <td>Orange</td>
-                <td>$3.76</td>
-                <td>100</td>
-                <td>N/A</td>
-                <td>January 1, 2015</td>
-                <td><a class="btn-floating waves-effect waves-light btn modal-trigger" href="#modal6"><i class="mdi-image-edit left"></i></a></td>
-                <td><a class="btn-floating waves-effect waves-light btn"><i class="mdi-action-delete left"></i></a></td>
-              </tr>
-              <tr>
-                <td><img class="circle" height="50px" src="grapes.jpg"></td>
-                <td>Grapes</td>
-                <td>$7.00</td>
-                <td>210</td>
-                <td>N/A</td>
-                <td>January 1, 2015</td>
-                <td><a class="btn-floating waves-effect waves-light btn modal-trigger" href="#modal6"><i class="mdi-image-edit left"></i></a></td>
-                <td><a class="btn-floating waves-effect waves-light btn"><i class="mdi-action-delete left"></i></a></td>
-              </tr>
+			  <?php
+					require_once "/lib/couch_connect.php";
+
+					//retrieve all docs in fruit database
+					try {
+						$doc = $fruit_client->useDatabase('fruit');
+						$doc = $fruit_client->getAllDocs();
+					} catch (Exception $e) {
+						if ( $e->code() == 404 ) {
+							echo "Document \"some_doc\" not found\n";
+						} else {
+							echo "Something weird happened: ".$e->getMessage()." (errcode=".$e->getCode().")\n";
+						}
+						exit(1);
+					}
+					$doc = (array)$doc;
+					
+					for($i=0; $i<$doc['total_rows']; $i++){
+						$data = (array)$doc['rows'][$i];
+						$mydata = (array)$fruit_client->getDoc($data['id']);
+						$name = $mydata['name'];
+						$price = $mydata['price'];
+						$qty = $mydata['qty'];
+						$_id = $mydata['_id'];
+						$img = $mydata['img'];
+						$date = $mydata['datelog'];
+						$distributor = $mydata['distributor'];
+						
+						if($img == null){
+							$img = "default.jpg";
+						}
+						
+						//print all docs
+						echo '
+								<td><img class="circle" height="50px" src="images/'.$img.'"></td>
+								<td>'.$name.'</td>
+								<td>'.$price.'</td>
+								<td>'.$qty.'</td>
+								<td>'.$distributor.'</td>
+								<td><a href="couch_price_log.php?fruit_id='.$_id.'">'.$date.'</a></td>
+								<td><a class="btn-floating waves-effect waves-light btn modal-trigger" href="couch_edit.php?edit_id='.$_id.'"><i class="mdi-image-edit left"></i></a></td>
+								<td><a href="couch_delete.php?delete_id='.$_id.'" class="btn-floating waves-effect waves-light btn"><i class="mdi-action-delete left"></i></a></td>
+							<tr>';
+					}
+				?>
             </tbody>
           </table>
         </div>
