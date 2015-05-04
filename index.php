@@ -664,7 +664,6 @@ PS: I will fix the color scheme and the logo soon.
             type: "POST",
             success:function(data){
               $('#fruit_'+id).fadeOut();
-              /*$("#txtmessage").val('');*/
             },
             error:function (){}
             });
