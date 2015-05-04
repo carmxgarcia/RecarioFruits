@@ -258,35 +258,35 @@ PS: I will fix the color scheme and the logo soon.
               <h4>Add Fruit</h4>
 
               <div class="row">
-              <form class="col s12">
+              <form method="POST" action="mongodb_add.php" class="col s12" enctype="multipart/form-data">
                 <div class="row">
                   <div class="file-field input-field">
-                    <input class="file-path validate" type="text" id="mongdb_fruit_image" placeholder="Upload Image"/>
+                    <input class="file-path validate" type="text" id="mongodb_fruit_image" placeholder="Upload Image"/>
                     <div class="btn">
                       <span class="mdi-file-file-upload"></span>
-                      <input type="file" />
+                      <input type="file" name="the_file"/>
                     </div>
                   </div>
                 </div>
                 <div class="row">
                   <div class="input-field col s12">
-                    <input placeholder="Fruit Name" id="mongodb_fruit_name" type="text" class="validate">
+                    <input placeholder="Fruit Name" id="mongodb_fruit_name" type="text" class="validate" name="name">
                     
                   </div>
                 </div>
                 <div class="row">
                   <div class="input-field col s3">
-                    <input placeholder="Price" id="mongodb_fruit_price" type="text" class="validate">
+                    <input placeholder="Price" id="mongodb_fruit_price" type="text" class="validate" name="price">
                   </div>
                   <div class="input-field col s3">
-                    <input placeholder="Quantity" id="mongodb_fruit_quantity" type="text" class="validate">
+                    <input placeholder="Quantity" id="mongodb_fruit_quantity" type="text" class="validate" name="quantity">
                   </div>
                   <div class="input-field col s6">
-                    <input placeholder="Distributor" id="mongodb_fruit_distributor" type="text" class="validate">
+                    <input placeholder="Distributor" id="mongodb_fruit_distributor" type="text" class="validate" name="distributor">
                   </div>
                 </div>
                 <div class="modal-footer">
-                  <a href="#!" class=" modal-action modal-close waves-effect waves-green mdi-content-add-circle btn"> Add Fruit</a>
+                  <input class="modal-action modal-close waves-effect waves-green mdi-content-add-circle btn" type="submit" value="Add Fruit">
                 </div>      
               </form>
             </div>
@@ -364,36 +364,41 @@ PS: I will fix the color scheme and the logo soon.
             </thead>
 
             <tbody>
-              <tr>
-                <td><img class="circle" height="50px" src="avocado.jpg"></td>  
-                <td>Avocado</td>
-                <td>$0.87</td>
-                <td>3</td>
-                <td>N/A</td>
-                <td>January 1, 2015</td>
-                <td><a class="btn-floating waves-effect waves-light btn modal-trigger" href="#modal4"><i class="mdi-image-edit left"></i></a></td>
-                <td><a class="btn-floating waves-effect waves-light btn"><i class="mdi-action-delete left"></i></a></td>
-              </tr>
-              <tr>
-                <td><img class="circle" height="50px" src="strawberry.jpg"></td>
-                <td>Strawberry</td>
-                <td>$3.76</td>
-                <td>100</td>
-                <td>N/A</td>
-                <td>January 1, 2015</td>
-                <td><a class="btn-floating waves-effect waves-light btn modal-trigger" href="#modal4"><i class="mdi-image-edit left"></i></a></td>
-                <td><a class="btn-floating waves-effect waves-light btn"><i class="mdi-action-delete left"></i></a></td>
-              </tr>
-              <tr>
-                <td><img class="circle" height="50px" src="guava.jpg"></td>
-                <td>Guava</td>
-                <td>$7.00</td>
-                <td>210</td>
-                <td>N/A</td>
-                <td>January 1, 2015</td>
-                <td><a class="btn-floating waves-effect waves-light btn modal-trigger" href="#modal4"><i class="mdi-image-edit left"></i></a></td>
-                <td><a class="btn-floating waves-effect waves-light btn"><i class="mdi-action-delete left"></i></a></td>
-              </tr>
+				<?php
+					$dbhost = 'localhost';
+					$dbname = 'test';
+ 
+					$db = new MongoClient('mongodb://localhost', array());
+					$connection1 = $db->selectCollection("test", "recariofruits");
+					$cursor = $connection1->find();
+					
+					foreach ($cursor as $doc) {
+						// do something to each document
+						$name = $doc['fruit_name'];
+						$price = $doc['fruit_price'];
+						$quantity = $doc['fruit_quantity'];
+						$distributor = $doc['fruit_distributor'];
+						$date = $doc['fruit_datelog'];
+						$_id = $doc['_id'];
+						$img = $doc['fruit_img'];
+						
+						if($img == null){
+							$img = "default.jpg";
+						}
+						
+						echo '
+								<td><img class="circle" height="50px" src="images/'.$img.'"></td>
+								<td>'.$name.'</td>
+								<td>$'.$price.'</td>
+								<td>'.$quantity.'</td>
+								<td>'.$distributor.'</td>
+								<td><a href="mongodb_pricelog.php?fruit_id='.$_id.'">'.$date.'</a></td>
+								<td><a class="btn-floating waves-effect waves-light btn modal-trigger" href="mongodb_edit.php?edit_id='.$_id.'"><i class="mdi-image-edit left"></i></a></td>
+								<td><a href="mongodb_delete.php?delete_id='.$_id.'" class="btn-floating waves-effect waves-light btn"><i class="mdi-action-delete left"></i></a></td>
+							<tr>';
+						// echo 'Fruit Name: '.$name.' Price: '.$price.' Quantity: '.$quantity.' Distributor: '.$distributor.' Date: '.$date."<br/>";
+					}
+				?>
             </tbody>
           </table>
 
