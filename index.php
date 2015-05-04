@@ -12,6 +12,7 @@ PS: I will fix the color scheme and the logo soon.
 <!DOCTYPE html>
 
   <?php
+
       $servername = "localhost";
       $username = "root";
       $password = "root";
@@ -25,6 +26,10 @@ PS: I will fix the color scheme and the logo soon.
           die("Connection failed: " . $conn->connect_error);
       }
       
+      if(!empty($_POST["fruit_id"])) {
+        $delete_query = $conn->query("DELETE FROM fruit WHERE id=".$_POST["fruit_id"]);
+      }
+
       #if any submit button is pressed
       if(isset($_POST['submit'])){
         if ($_POST['submit']=="mysql add"){
@@ -258,8 +263,7 @@ PS: I will fix the color scheme and the logo soon.
               <?php
                 for ($i=0; $i < $total; $i++) { 
                   echo "
-                    <tr id=".$fruit_collection[$i][0].">
-
+                    <tr id='fruit_".$fruit_collection[$i][0]."'>
                       <td><img class='circle' height='50px' src=". $fruit_collection[$i][5] ."></td>
                       <td>". $fruit_collection[$i][1] ."<input type='hidden' value='".$fruit_collection[$i][1]."' class='name".$fruit_collection[$i][0]."'></td>
                       <td>". $fruit_collection[$i][2] ."<input type='hidden' value='".$fruit_collection[$i][2]."' class='price".$fruit_collection[$i][0]."'></td>
@@ -267,7 +271,7 @@ PS: I will fix the color scheme and the logo soon.
                       <td>". $fruit_collection[$i][4] ."<input type='hidden' value='".$fruit_collection[$i][4]."' class='distributor".$fruit_collection[$i][0]."'></td>
                       <td>Link to Logs</td>
                       <td><button class='btn-floating waves-effect waves-light btn modal-trigger edit' href='#modal2' value='".$fruit_collection[$i][0]."'><i class='mdi-image-edit left'></i></button></td>
-                      <td><button class='btn-floating waves-effect waves-light btn mysql_delete' name='mysql delete' value='mysql delete'><i class='mdi-action-delete left'></i></button></td>
+                      <td><button class='btn-floating waves-effect waves-light btn btnDeleteAction' name='delete' value='mysql delete' onClick='deleteItem(".$fruit_collection[$i][0].")'><i class='mdi-action-delete left'></i></button></td>
                     </tr>
                   ";
                 }
@@ -649,8 +653,22 @@ PS: I will fix the color scheme and the logo soon.
             $('#edit_mysql_fruit_distributor').val($('.distributor'+a).val());
 
           });
-
         });
+
+        function deleteItem(id) {
+            var queryString = 'action=delete&fruit_id='+ id;
+
+            jQuery.ajax({
+            url: "index.php",
+            data:queryString,
+            type: "POST",
+            success:function(data){
+              $('#fruit_'+id).fadeOut();
+              /*$("#txtmessage").val('');*/
+            },
+            error:function (){}
+            });
+        }
       </script>
     
     </body>
