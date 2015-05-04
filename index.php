@@ -462,7 +462,7 @@ PS: I will fix the color scheme and the logo soon.
                   </div>
                 </div>
                 <div class="modal-footer">
-                  <input class="modal-action modal-close waves-effect waves-green mdi-content-add-circle btn" type="submit" value="Add Fruit">
+                  <button class="modal-action modal-close waves-effect waves-green mdi-content-add-circle btn" type="submit" value="Add Fruit">Add Fruit</button>
                 </div>    
               </form>
             </div>
