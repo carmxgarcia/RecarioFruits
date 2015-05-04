@@ -259,7 +259,11 @@ PS: I will fix the color scheme and the logo soon.
 
             <tbody>
               <?php
-                for ($i=0; $i < $total; $i++) { 
+                for ($i=0; $i < $total; $i++) {
+                  $edit_log_query = $conn->query("SELECT * FROM log WHERE fname='".$fruit_collection[$i][1]."'");
+                  $total_edit = $edit_log_query->num_rows;
+                  $history = $edit_log_query->fetch_all();
+
                   echo "
                     <tr id='fruit_".$fruit_collection[$i][0]."'>
                       <td><img class='circle' height='50px' src=". $fruit_collection[$i][5] ."></td>
@@ -267,13 +271,7 @@ PS: I will fix the color scheme and the logo soon.
                       <td>". $fruit_collection[$i][2] ."<input type='hidden' value='".$fruit_collection[$i][2]."' class='price".$fruit_collection[$i][0]."'></td>
                       <td>". $fruit_collection[$i][3] ."<input type='hidden' value='".$fruit_collection[$i][3]."' class='quantity".$fruit_collection[$i][0]."'></td>
                       <td>". $fruit_collection[$i][4] ."<input type='hidden' value='".$fruit_collection[$i][4]."' class='distributor".$fruit_collection[$i][0]."'></td>
-                      <td>
-                        <div id='log_".$fruit_collection[$i][0].">
-                          <table>
-                            
-                          </table>
-                        </div>
-                      </td>
+                      <td><a href=''>".$history[$total_edit-1][0]."</a></td>
                       <td><button class='btn-floating waves-effect waves-light btn modal-trigger edit' href='#modal2' value='".$fruit_collection[$i][0]."'><i class='mdi-image-edit left'></i></button></td>
                       <td><button class='btn-floating waves-effect waves-light btn btnDeleteAction' name='delete' value='mysql delete' onClick='deleteItem(".$fruit_collection[$i][0].")'><i class='mdi-action-delete left'></i></button></td>
                     </tr>
