@@ -1,14 +1,3 @@
-<!-- 
-
-DEAR GROUPMATES, this is already well-documented (I think?).
-Search for your specific database ex: "mysql" and you will see the div where the view for that specific database is coded(?).
-Please document your works. And please use unique IDs. Thank you. 
-
-PS: I will fix the color scheme and the logo soon.
-
--->
-
-
 <!DOCTYPE html>
   <html>
     <head>
