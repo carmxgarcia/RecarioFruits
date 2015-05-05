@@ -13,18 +13,7 @@ PS: I will fix the color scheme and the logo soon.
 
   <?php
 
-      $servername = "localhost";
-      $username = "root";
-      $password = "root";
-      $database = "recariofruits";
-
-      // Create connection
-      $conn = new mysqli($servername, $username, $password, $database);
-
-      // Check connection
-      if ($conn->connect_error) {
-          die("Connection failed: " . $conn->connect_error);
-      }
+      require_once('mysql_connect.php');
       
       if(!empty($_POST["fruit_id"])) {
         $delete_query = $conn->query("DELETE FROM fruit WHERE id=".$_POST["fruit_id"]);
@@ -140,7 +129,6 @@ PS: I will fix the color scheme and the logo soon.
                 <div class="row">
                   <div class="input-field col s12">
                     <input placeholder="Fruit Name" name="mysql_fruit_name" id="mysql_fruit_name" type="text" class="validate">
-                    
                   </div>
                 </div>
                 <div class="row">
@@ -271,7 +259,11 @@ PS: I will fix the color scheme and the logo soon.
                       <td>". $fruit_collection[$i][2] ."<input type='hidden' value='".$fruit_collection[$i][2]."' class='price".$fruit_collection[$i][0]."'></td>
                       <td>". $fruit_collection[$i][3] ."<input type='hidden' value='".$fruit_collection[$i][3]."' class='quantity".$fruit_collection[$i][0]."'></td>
                       <td>". $fruit_collection[$i][4] ."<input type='hidden' value='".$fruit_collection[$i][4]."' class='distributor".$fruit_collection[$i][0]."'></td>
-                      <td><a href=''>".$history[$total_edit-1][0]."</a></td>
+                      <td>
+                        <form method='POST' action='mysql_log.php'>
+                          <button type='submit' name='log_view' value='".$fruit_collection[$i][1]."'>".$history[$i][0]."</button>
+                        </form>
+                      </td>
                       <td><button class='btn-floating waves-effect waves-light btn modal-trigger edit' href='#modal2' value='".$fruit_collection[$i][0]."'><i class='mdi-image-edit left'></i></button></td>
                       <td><button class='btn-floating waves-effect waves-light btn btnDeleteAction' name='delete' value='mysql delete' onClick='deleteItem(".$fruit_collection[$i][0].")'><i class='mdi-action-delete left'></i></button></td>
                     </tr>
