@@ -5,6 +5,7 @@
 		$id = $_GET['delete_id'];
 		
 		// retrieve doc to be deleted
+
 		try {
 			$doc = $fruit_client->getDoc($id);
 		} catch (Exception $e) {
@@ -18,12 +19,15 @@
 		//echo "Document retrieved: ".print_r($doc,true)."\n";
 		
 		//delete retrieved doc
+		
 		try {
 			$result = $fruit_client->deleteDoc($doc);
 		} catch (Exception $e) {
 			echo "Something weird happened: ".$e->getMessage()." (errcode=".$e->getCode().")\n";
 			exit(1);
 		}
+
+		
 		
 		
 		try {

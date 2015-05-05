@@ -195,6 +195,7 @@ PS: I will fix the color scheme and the logo soon.
 					require_once "/lib/couch_connect.php";
 
 					//retrieve all docs in fruit database
+          
 					try {
 						$doc = $fruit_client->useDatabase('fruit');
 						$doc = $fruit_client->getAllDocs();
@@ -235,10 +236,14 @@ PS: I will fix the color scheme and the logo soon.
 								<td><a href="couch_delete.php?delete_id='.$_id.'" class="btn-floating waves-effect waves-light btn"><i class="mdi-action-delete left"></i></a></td>
 							<tr>';
 					}
+
+          
 				?>
             </tbody>
           </table>
         </div>
+
+
 
         <!-- END OF COUCHDB -->
 

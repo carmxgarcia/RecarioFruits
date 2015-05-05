@@ -47,12 +47,14 @@
 	$pricelog_doc->logdatetime = date('Y-m-d H:i:s');;
 	$pricelog_doc->fprice = $_POST['edit_price'];
 	
+	
 	try {
 		$response = $price_client->storeDoc($pricelog_doc);
 	} catch (Exception $e) {
 		echo "Something weird happened: ".$e->getMessage()." (errcode=".$e->getCode().")\n";
 		exit(1);
 	}
-	
+
+
 	header("location: ../recariofruits/#couchdb");
 ?>
