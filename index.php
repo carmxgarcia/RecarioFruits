@@ -41,7 +41,7 @@ PS: I will fix the color scheme and the logo soon.
             <li class="tab col s3"><a  href="#mongodb">MongoDB</a></li>
           </ul>
         </div>
-
+		
         <!-- MongoDB
       
         THIS IS THE DIV FOR MONGODB
@@ -58,20 +58,7 @@ PS: I will fix the color scheme and the logo soon.
           </div>
 
           <br/><br/>
-
-          <!-- MODAL FOR ADD COUCHDB ITEM 
-            ids:
-            for image file => mongodb_fruit_image
-                fruit name => mongodb_fruit_name
-                price => mongodb_fruit_price
-                quantity => mongodb_fruit_quantity
-                distrubutor => mongodb_fruit_distributor
-                date => system date
-
-                Save the date when the row is added on the date column.
-          -->
-
-          <div id="modal3" class="modal">
+	<div id="modal3" class="modal">
             <div class="modal-content">
               <h4>Add Fruit</h4>
 
@@ -82,14 +69,13 @@ PS: I will fix the color scheme and the logo soon.
                     <input class="file-path validate" type="text" id="mongodb_fruit_image" placeholder="Upload Image"/>
                     <div class="btn">
                       <span class="mdi-file-file-upload"></span>
-                      <input type="file" name="the_file"/>
+                      <input type="file" name="the_file" />
                     </div>
                   </div>
                 </div>
                 <div class="row">
                   <div class="input-field col s12">
                     <input placeholder="Fruit Name" id="mongodb_fruit_name" type="text" class="validate" name="name">
-                    
                   </div>
                 </div>
                 <div class="row">
@@ -97,20 +83,21 @@ PS: I will fix the color scheme and the logo soon.
                     <input placeholder="Price" id="mongodb_fruit_price" type="text" class="validate" name="price">
                   </div>
                   <div class="input-field col s3">
-                    <input placeholder="Quantity" id="mongodb_fruit_quantity" type="text" class="validate" name="quantity">
+                    <input placeholder="Quantity" id="mongodb_fruit_quantity" type="text" class="validate" name="quantity">  
                   </div>
                   <div class="input-field col s6">
-                    <input placeholder="Distributor" id="mongodb_fruit_distributor" type="text" class="validate" name="distributor">
+                    <input placeholder="Distributor" id="mongodb_fruit_distributor" type="text" class="validate" name="distributor">  
                   </div>
                 </div>
                 <div class="modal-footer">
-                  <input class="modal-action modal-close waves-effect waves-green mdi-content-add-circle btn" type="submit" value="Add Fruit">
-                </div>      
+                  <button class="modal-action modal-close waves-effect waves-green mdi-content-add-circle btn" type="submit" value="Add Fruit">Add Fruit</button>
+                </div>    
               </form>
             </div>
             </div>
             
           </div>
+
 
           <!-- MODAL FOR EDIT MONGODB ITEMS 
             ids:
@@ -124,41 +111,53 @@ PS: I will fix the color scheme and the logo soon.
                 Save the date when the row is updated on the date column.
           -->
 
-          <div id="modal4" class="modal">
+          <div id="modal2" class="modal">
             <div class="modal-content">
               <h4>Edit Fruit</h4>
 
               <div class="row">
-              <form class="col s12">
+              <form method="POST" action="mongodb_edit_process.php" class="col s12" enctype="multipart/form-data">
+
                 <div class="row">
                   <div class="file-field input-field">
-                    <input class="file-path validate" type="text" id="edit_mongodb_fruit_image" placeholder="Upload Image"/>
+                    <input class="file-path validate" type="text" id="edit_mongodb_fruit_image" name="fruit_image" placeholder="Upload Image"/>
                     <div class="btn">
                       <span class="mdi-file-file-upload"></span>
-                      <input type="file" />
+                      <input type="file" name="the_file"/>
                     </div>
                   </div>
                 </div>
                 <div class="row">
+
                   <div class="input-field col s12">
-                    <input placeholder="Fruit Name" id="edit_mongodb_fruit_name" type="text" class="validate">
+                  <label>Fruit Name</label>
+                    <input placeholder="Fruit Name" id="edit_mongodb_fruit_name" name="edit_name" type="text" class="validate">
                     
                   </div>
                 </div>
                 <div class="row">
+                  <input type="hidden" value="" name="edit_id" id="edit_mongodb_fruit_id">
                   <div class="input-field col s3">
-                    <input placeholder="Price" id="edit_mongodb_fruit_price" type="text" class="validate">
+                    <label>Price</label>
+                    <input placeholder="Price" id="edit_mongodb_fruit_price" name="edit_price" type="text" class="validate">
                   </div>
                   <div class="input-field col s3">
-                    <input placeholder="Quantity" id="edit_mongodb_fruit_quantity" type="text" class="validate"> 
+                  <label>Quantity</label>
+                    <input placeholder="Quantity" id="edit_mongodb_fruit_quantity" name="edit_quantity" type="text" class="validate">
+                    
                   </div>
+                  
                   <div class="input-field col s6">
-                    <input placeholder="Distributor" id="edit_mongodb_fruit_distributor" type="text" class="validate"> 
+                    <label>Distributor</label>
+                    <input placeholder="Distributor" id="edit_mongodb_fruit_distributor" name="edit_distributor" type="text" class="validate">
                   </div>
                 </div>
-                <div class="modal-footer">
-                  <a href="#!" class=" modal-action modal-close waves-effect waves-green mdi-image-edit btn"> Edit Fruit</a>
-                </div>    
+                <div class="row">
+                  <div class="modal-footer">
+                    <button type="submit" class=" modal-action modal-close waves-effect waves-green mdi-image-edit btn">Edit Fruit</button>
+                  </div>  
+                </div>
+
               </form>
             </div>
             </div>
@@ -183,6 +182,8 @@ PS: I will fix the color scheme and the logo soon.
 
             <tbody>
 				<?php
+					// $start = microtime(true);
+					
 					$dbhost = 'localhost';
 					$dbname = 'test';
  
@@ -205,17 +206,22 @@ PS: I will fix the color scheme and the logo soon.
 						}
 						
 						echo '
-								<td><img class="circle" height="50px" src="images/'.$img.'"></td>
-								<td>'.$name.'</td>
-								<td>$'.$price.'</td>
-								<td>'.$quantity.'</td>
-								<td>'.$distributor.'</td>
+								<td><img class="circle" height="50px" src="images/'.$img.'">'.'<input type="hidden" value="'.$img.'" class="img'.$_id.'">'.'</td>
+								<td >'.$name.'<input type="hidden" value="'.$name.'" class="name'.$_id.'">'.'</td>
+								<td>'.$price.'<input type="hidden" value="'.$price.'" class="price'.$_id.'">'.'</td>
+								<td>'.$quantity.'<input type="hidden" value="'.$quantity.'" class="quantity'.$_id.'">'.'</td>
+								<td>'.$distributor.'<input type="hidden" value="'.$distributor.'" class="distributor'.$_id.'">'.'</td>
 								<td><a href="mongodb_pricelog.php?fruit_id='.$_id.'">'.$date.'</a></td>
-								<td><a class="btn-floating waves-effect waves-light btn modal-trigger" href="mongodb_edit.php?edit_id='.$_id.'"><i class="mdi-image-edit left"></i></a></td>
+								<td><button class="btn-floating waves-effect waves-light btn modal-trigger edit" href="#modal2" value="'.$_id.'"><i class="mdi-image-edit left"></i></button></td>
 								<td><a href="mongodb_delete.php?delete_id='.$_id.'" class="btn-floating waves-effect waves-light btn"><i class="mdi-action-delete left"></i></a></td>
 							<tr>';
+							
+						
 						// echo 'Fruit Name: '.$name.' Price: '.$price.' Quantity: '.$quantity.' Distributor: '.$distributor.' Date: '.$date."<br/>";
 					}
+					
+					// $time_elapsed_secs = microtime(true) - $start;
+					// echo $time_elapsed_secs;
 				?>
             </tbody>
           </table>
@@ -232,6 +238,18 @@ PS: I will fix the color scheme and the logo soon.
         $(document).ready(function(){
           // the "href" attribute of .modal-trigger must specify the modal ID that wants to be triggered
           $('.modal-trigger').leanModal();
+        
+          $('.edit').click(function(){
+            
+            var a=$(this).val();
+            $('#edit_mongodb_fruit_id').val(a);
+            $('#edit_mongodb_fruit_name').val($('.name'+a).val());
+            $('#edit_mongodb_fruit_price').val($('.price'+a).val());
+            $('#edit_mongodb_fruit_quantity').val($('.quantity'+a).val());
+            $('#edit_mongodb_fruit_distributor').val($('.distributor'+a).val());
+            $('#edit_mongodb_fruit_image').val($('.img'+a).val());
+
+          });
         });
       </script>
     </body>

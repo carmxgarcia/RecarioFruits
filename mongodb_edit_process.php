@@ -1,4 +1,6 @@
 <?php
+	// $start = microtime(true);
+	
 	$dbhost = 'localhost';
 	$dbname = 'test';
 	
@@ -13,10 +15,8 @@
 	$distributor = $_POST['edit_distributor'];
 	$date = date('Y-m-d H:i:s');
 	
-	$file_name = $_FILES["the_file"]["name"]; 
-	$file_temp_loc = $_FILES["the_file"]["tmp_name"];
-	$path_name = "images/".$file_name;
-	move_uploaded_file($file_temp_loc, $path_name);
+	$file_name = $_POST['fruit_image'];
+	move_uploaded_file($_FILES['the_file']['tmp_name'],"images/".$file_name);
 	
 	$filter=array('_id' => new MongoID($_POST['edit_id']));
 	$update=array('$set' => array('fruit_name' => $name,
@@ -33,6 +33,9 @@
 						"fruit_logdatetime" => date('Y-m-d H:i:s'), 
 						"fruit_price" => $price);
 	$connection2->insert($data2);
+	
+	// $time_elapsed_secs = microtime(true) - $start;
+	// echo $time_elapsed_secs;
 	
 	header("location: ../recariofruits-master/#mongodb");
 ?>

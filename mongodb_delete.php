@@ -1,4 +1,6 @@
 <?php
+	// $start = microtime(true);
+	
 	$dbhost = 'localhost';
 	$dbname = 'test';
 	 
@@ -9,5 +11,8 @@
 	$connection2 = $db1->selectCollection("test", "recariofruits_pricelog");
 	$connection2->remove(array( "fruit_id" => new MongoID($_GET['delete_id'])));
 	
-	header("location: ../recariofruits-master/#mongodb");
+	// $time_elapsed_secs = microtime(true) - $start;
+	// echo $time_elapsed_secs;
+	
+	// header("location: ../recariofruits-master/#mongodb");
 ?>
