@@ -10,7 +10,7 @@
 			
 		$file_name = htmlspecialchars($_FILES['the_file']['name']);
 		move_uploaded_file($_FILES['the_file']['tmp_name'],"images/".$file_name);
-		
+		echo $id;
 		try {
 			$fruit_doc = $fruit_client->getDoc($id);
 		} catch (Exception $e) {

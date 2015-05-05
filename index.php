@@ -121,41 +121,53 @@ PS: I will fix the color scheme and the logo soon.
             Save the date when the row is updated on the date column.
           -->
 
-          <div id="modal6" class="modal">
+          <div id="modal2" class="modal">
             <div class="modal-content">
               <h4>Edit Fruit</h4>
 
               <div class="row">
-              <form method="POST" action="couch_edit.php" class="col s12">
+              <form method="POST" action="couch_edit_process.php" class="col s12" enctype="multipart/form-data">
+
                 <div class="row">
                   <div class="file-field input-field">
-                    <input class="file-path validate" type="text" id="edit_couchdb_fruit_image" placeholder="Upload Image"/>
+                    <input class="file-path validate" type="text" id="edit_couchdb_fruit_image" name="edit_mysql_fruit_image" placeholder="Upload Image"/>
                     <div class="btn">
                       <span class="mdi-file-file-upload"></span>
-                      <input type="file" />
+                      <input type="file" name="the_file" />
                     </div>
                   </div>
                 </div>
                 <div class="row">
+
                   <div class="input-field col s12">
-                    <input placeholder="Fruit Name" id="edit_couchdb_fruit_name" type="text" class="validate">
+                  <label>Fruit Name</label>
+                    <input placeholder="Fruit Name" id="edit_couchdb_fruit_name" name="edit_name" type="text" class="validate">
                     
                   </div>
                 </div>
                 <div class="row">
+                  <input type="hidden" value="" name="edit_id" id="edit_couchdb_fruit_id">
                   <div class="input-field col s3">
-                    <input placeholder="Price" id="edit_couchdb_fruit_price" type="text" class="validate">
+                    <label>Price</label>
+                    <input placeholder="Price" id="edit_couchdb_fruit_price" name="edit_price" type="text" class="validate">
                   </div>
                   <div class="input-field col s3">
-                    <input placeholder="Quantity" id="edit_couchdb_fruit_quantity" type="text" class="validate">
+                  <label>Quantity</label>
+                    <input placeholder="Quantity" id="edit_couchdb_fruit_quantity" name="edit_qty" type="text" class="validate">
+                    
                   </div>
+                  
                   <div class="input-field col s6">
-                    <input placeholder="Distributor" id="edit_couchdb_fruit_distributor" type="text" class="validate">
+                    <label>Distributor</label>
+                    <input placeholder="Distributor" id="edit_couchdb_fruit_distributor" name="edit_distributor" type="text" class="validate">
                   </div>
                 </div>
-                <div class="modal-footer">
-                  <a href="#!" class=" modal-action modal-close waves-effect waves-green mdi-image-edit btn"> Edit Fruit</a>
-                </div>    
+                <div class="row">
+                  <div class="modal-footer">
+                    <button type="submit" class=" modal-action modal-close waves-effect waves-green mdi-image-edit btn">Edit Fruit</button>
+                  </div>  
+                </div>
+
               </form>
             </div>
             </div>
@@ -213,13 +225,13 @@ PS: I will fix the color scheme and the logo soon.
 						
 						//print all docs
 						echo '
-								<td><img class="circle" height="50px" src="images/'.$img.'"></td>
-								<td>'.$name.'</td>
-								<td>'.$price.'</td>
-								<td>'.$qty.'</td>
-								<td>'.$distributor.'</td>
+								<td><img class="circle" height="50px" src="images/'.$img.'">'.'<input type="hidden" value="'.$img.'" class="img'.$_id.'">'.'</td>
+								<td >'.$name.'<input type="hidden" value="'.$name.'" class="name'.$_id.'">'.'</td>
+								<td>'.$price.'<input type="hidden" value="'.$price.'" class="price'.$_id.'">'.'</td>
+								<td>'.$qty.'<input type="hidden" value="'.$qty.'" class="quantity'.$_id.'">'.'</td>
+								<td>'.$distributor.'<input type="hidden" value="'.$distributor.'" class="distributor'.$_id.'">'.'</td>
 								<td><a href="couch_price_log.php?fruit_id='.$_id.'">'.$date.'</a></td>
-								<td><a class="btn-floating waves-effect waves-light btn modal-trigger" href="couch_edit.php?edit_id='.$_id.'"><i class="mdi-image-edit left"></i></a></td>
+								<td><button class="btn-floating waves-effect waves-light btn modal-trigger edit" href="#modal2" value="'.$_id.'"><i class="mdi-image-edit left"></i></button></td>
 								<td><a href="couch_delete.php?delete_id='.$_id.'" class="btn-floating waves-effect waves-light btn"><i class="mdi-action-delete left"></i></a></td>
 							<tr>';
 					}
@@ -238,6 +250,18 @@ PS: I will fix the color scheme and the logo soon.
         $(document).ready(function(){
           // the "href" attribute of .modal-trigger must specify the modal ID that wants to be triggered
           $('.modal-trigger').leanModal();
+        
+          $('.edit').click(function(){
+            
+            var a=$(this).val();
+            $('#edit_couchdb_fruit_id').val(a);
+            $('#edit_couchdb_fruit_name').val($('.name'+a).val());
+            $('#edit_couchdb_fruit_price').val($('.price'+a).val());
+            $('#edit_couchdb_fruit_quantity').val($('.quantity'+a).val());
+            $('#edit_couchdb_fruit_distributor').val($('.distributor'+a).val());
+            $('#edit_couchdb_fruit_image').val($('.img'+a).val());
+
+          });
         });
       </script>
     </body>
