@@ -13,16 +13,19 @@
 
 <html>
 	<head>
+		<link type="text/css" rel="stylesheet" href="css/materialize.min.css"  media="screen,projection"/>
 		<title>
 			Edit History
 		</title>
 	</head>
 	<body>
-		Fruit name: <?php echo $fname; ?>
-		<table>
+		<h5 class="center">Fruit name: <?php echo $fname; ?> <a style="font-size:15px; margin:10px" href="index.php"> [Back]</a></h5>
+
+		<table class="centered striped container">
 			<thead>
-				<tr>
-					<th>Edit time</th>
+				
+				<tr class="green lighten-3">
+					<th>Time of Update</th>
 					<th>Price</th>
 				</tr>
 			</thead>
@@ -39,7 +42,6 @@
 				?>
 			</tbody>
 		</table>
-
-		<a href="index.php">Back</a>
+		
 	</body>
 </html>

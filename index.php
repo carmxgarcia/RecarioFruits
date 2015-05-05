@@ -1,14 +1,3 @@
-<!-- 
-
-DEAR GROUPMATES, this is already well-documented (I think?).
-Search for your specific database ex: "mysql" and you will see the div where the view for that specific database is coded(?).
-Please document your works. And please use unique IDs. Thank you. 
-
-PS: I will fix the color scheme and the logo soon.
-
--->
-
-
 <!DOCTYPE html>
 
   <?php
@@ -21,6 +10,7 @@ PS: I will fix the color scheme and the logo soon.
 
       #if any submit button is pressed
       if(isset($_POST['submit'])){
+
         if ($_POST['submit']=="mysql add"){
           $name = $_POST['mysql_fruit_name'];
           $price = $_POST['mysql_fruit_price'];
@@ -29,6 +19,7 @@ PS: I will fix the color scheme and the logo soon.
           $imgfile = $_POST['mysql_fruit_image'];
 
           $add_fruit_query = $conn->query("INSERT INTO fruit (name, price, quantity, distributor, img) VALUES ('".$name."',".$price.",".$quantity.",'".$distributor."','".$imgfile."')") or die;
+          
         }
         elseif ($_POST['submit']=="mysql edit") {
           #Update fruit table
@@ -40,6 +31,8 @@ PS: I will fix the color scheme and the logo soon.
           $imgfile = $_POST['edit_mysql_fruit_image'];
 
           $edit_fruit_query = $conn->query("UPDATE `fruit` SET `name`='".$name."',`price`=".$price.",`quantity`=".$quantity.",`distributor`='".$distributor."' WHERE id=".$id) or die;
+          
+
           if($imgfile != "") $edit_fruit_query = $conn->query("UPDATE fruit SET img='".$imgfile."' WHERE id = ".$id ) or die;
         
           #add event in log table
@@ -231,7 +224,7 @@ PS: I will fix the color scheme and the logo soon.
                   <th data-field="name">Price</th>
                   <th data-field="price">Quantity</th>
                   <th data-field="distributor">Distributor</th>
-                  <th data-field="date">Log File</th>
+                  <th data-field="date">Last Update</th>
                   <th>Edit</th>
                   <th>Delete</th>
               </tr>
@@ -239,7 +232,9 @@ PS: I will fix the color scheme and the logo soon.
 
             <!--Query in order to fetch all available fruits in the database-->
             <?php
+
               $fruit_query = $conn->query("SELECT * FROM fruit");
+
               $total = $fruit_query->num_rows;
 
               $fruit_collection = $fruit_query->fetch_all();
@@ -251,7 +246,13 @@ PS: I will fix the color scheme and the logo soon.
                   $edit_log_query = $conn->query("SELECT * FROM log WHERE fname='".$fruit_collection[$i][1]."'");
                   $total_edit = $edit_log_query->num_rows;
                   $history = $edit_log_query->fetch_all();
-
+                            if($total_edit==0){
+                              $disp = 'N/A';
+                            } 
+                            else{
+                              $disp = $history[$total_edit-1][0];
+                            }
+                          
                   echo "
                     <tr id='fruit_".$fruit_collection[$i][0]."'>
                       <td><img class='circle' height='50px' src=". $fruit_collection[$i][5] ."></td>
@@ -261,7 +262,7 @@ PS: I will fix the color scheme and the logo soon.
                       <td>". $fruit_collection[$i][4] ."<input type='hidden' value='".$fruit_collection[$i][4]."' class='distributor".$fruit_collection[$i][0]."'></td>
                       <td>
                         <form method='POST' action='mysql_log.php'>
-                          <button type='submit' name='log_view' value='".$fruit_collection[$i][1]."'>".$history[$i][0]."</button>
+                          <button type='submit' name='log_view' value='".$fruit_collection[$i][1]."'>".$disp."</button>
                         </form>
                       </td>
                       <td><button class='btn-floating waves-effect waves-light btn modal-trigger edit' href='#modal2' value='".$fruit_collection[$i][0]."'><i class='mdi-image-edit left'></i></button></td>
